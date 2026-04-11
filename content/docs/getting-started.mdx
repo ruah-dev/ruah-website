@@ -1,0 +1,90 @@
+---
+title: Getting Started
+description: Install the ruah CLI and run your first multi-agent workflow in under 5 minutes.
+---
+
+## Installation
+
+Install the ruah CLI globally:
+
+```bash
+# pnpm (recommended)
+pnpm add -g @ruah-dev/cli
+
+# npm
+npm install -g @ruah-dev/cli
+
+# or run without installing
+npx @ruah-dev/cli
+```
+
+Verify the installation:
+
+```bash
+ruah --version
+```
+
+## Initialize a Repository
+
+Navigate to any git repository and initialize ruah:
+
+```bash
+cd your-project
+ruah init
+```
+
+This creates a `.ruah/` directory with configuration and state files.
+
+## Create Your First Task
+
+Tasks are isolated workspaces where AI agents can make changes without interfering with each other:
+
+```bash
+ruah task create auth \
+  --files "src/auth/**" \
+  --executor claude-code \
+  --prompt "Add JWT authentication with refresh tokens"
+```
+
+Options:
+- `--files` — glob patterns for the files this task can modify
+- `--executor` — which AI agent to use (`claude-code`, `aider`, `codex`, `open-code`, `script`, `raw`)
+- `--prompt` — instructions for the agent
+
+## Start the Task
+
+```bash
+ruah task start auth
+```
+
+This creates a git worktree, sets up file claims, and launches the executor.
+
+## Complete and Merge
+
+When the agent finishes:
+
+```bash
+# Mark as done
+ruah task done auth
+
+# Merge back to main branch
+ruah task merge auth
+```
+
+The merge runs governance gates (if configured) and integrates changes cleanly.
+
+## Run the Interactive Demo
+
+Not sure where to start? Try the built-in demo:
+
+```bash
+ruah demo
+```
+
+This walks you through the full workflow interactively.
+
+## Next Steps
+
+- [CLI Reference](/docs/ruah-cli) — all commands and options
+- [Orchestration Concepts](/docs/ruah-orch) — workspaces, claims, workflows
+- [API Conversion](/docs/ruah-conv) — convert specs to agent tools

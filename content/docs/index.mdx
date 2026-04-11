@@ -1,0 +1,69 @@
+---
+title: Introduction
+description: The open-source toolchain for agentic AI — orchestrate agents, convert API specs, merge everything cleanly.
+---
+
+## What is ruah?
+
+**ruah** is an open-source toolchain that solves a specific problem: **what happens when multiple AI agents edit the same codebase at the same time?**
+
+Without coordination, agents overwrite each other's work, create merge conflicts, and produce broken code. ruah prevents this by giving each agent its own isolated workspace (a git worktree), tracking which files each agent is allowed to touch, and merging their results back together in the right order.
+
+It also converts API specifications (OpenAPI, Swagger, GraphQL, Postman, HAR) into tool definitions that agents can actually call — so your agents can interact with any API without manual wiring.
+
+### The ecosystem
+
+ruah ships as three packages that work together:
+
+| Package | What it does |
+|---------|-------------|
+| [`@ruah-dev/cli`](/docs/ruah-cli) | Top-level CLI router — one install, every tool |
+| [`@ruah-dev/orch`](/docs/ruah-orch) | Multi-agent orchestration with workspace isolation |
+| [`@ruah-dev/conv`](/docs/ruah-conv) | API spec → agent-ready tool surfaces |
+
+You can use them independently or together. Install the CLI and you get everything.
+
+## Quick Start
+
+```bash
+# Install the CLI
+pnpm add -g @ruah-dev/cli
+
+# Initialize in any git repo
+ruah init
+
+# Create your first isolated task
+ruah task create my-feature \
+  --files "src/**" \
+  --executor claude-code \
+  --prompt "Implement the feature"
+
+# Start it
+ruah task start my-feature
+```
+
+## How It Fits Together
+
+```
+ruah          ← top-level CLI (routes to orch + conv)
+├── orch      ← multi-agent orchestration
+│   ├── task management (create, start, done, merge)
+│   ├── workflow DAGs (run, plan, resume)
+│   └── workspace isolation (git worktrees)
+└── conv      ← API spec conversion
+    ├── parsers (OpenAPI, Swagger, Postman, GraphQL, HAR)
+    ├── intermediate representation (Ruah Tool Schema)
+    └── generators (MCP, OpenAI, Anthropic, A2A)
+```
+
+## Requirements
+
+- **Node.js** 18.0.0 or higher
+- **Git** repository (for orchestration features)
+- **Zero runtime dependencies** — the orchestrator has none, the converter needs only `yaml`
+
+## Next Steps
+
+- [Getting Started](/docs/getting-started) — install and run your first workflow
+- [Orchestration](/docs/ruah-orch) — deep dive into task isolation and claims
+- [Conversion](/docs/ruah-conv) — convert API specs to agent tools

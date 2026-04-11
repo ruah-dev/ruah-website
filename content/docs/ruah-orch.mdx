@@ -1,0 +1,145 @@
+---
+title: Orchestrator
+description: Multi-agent orchestration with workspace isolation, file claims, and workflow DAGs.
+---
+
+## Overview
+
+`@ruah-dev/orch` coordinates multiple AI agents working on the same repository. It solves the fundamental problem: when agents edit the same files, their changes collide.
+
+The orchestrator provides:
+- **Workspace isolation** via git worktrees
+- **File-level claims** (owned, shared, read-only)
+- **Workflow DAGs** with dependency ordering
+- **Durable artifacts** captured from each task
+- **Compatibility checks** before merging
+
+## Architecture
+
+<Mermaid chart={`
+graph TD
+  subgraph orch["ruah orch"]
+    A["Task A\nworktree\nclaims: src/auth\n(owned)"]
+    B["Task B\nworktree\nclaims: src/ui\n(owned)"]
+    C["Task C\n..."]
+    M["Merge Engine\ndependency order + governance"]
+
+    A --> M
+    B --> M
+    C --> M
+  end
+`} />
+
+## Task Lifecycle
+
+### Create
+
+```bash
+ruah task create auth \
+  --files "src/auth/**" \
+  --executor claude-code \
+  --prompt "Add JWT authentication" \
+  --depends api-design
+```
+
+**Options:**
+- `--files <globs>` — file patterns to lock
+- `--base <branch>` — base branch (default: current)
+- `--executor <cmd>` — agent to run
+- `--prompt <text>` — instructions
+- `--parent <task>` — create as subtask
+- `--depends <tasks>` — upstream dependencies
+- `--read-only` — read-only lock (no conflicts)
+
+### Start
+
+```bash
+ruah task start auth [--no-exec] [--dry-run] [--force]
+```
+
+Creates a git worktree, establishes file claims, and launches the executor.
+
+### Done & Merge
+
+```bash
+ruah task done auth
+ruah task merge auth [--dry-run] [--skip-gates]
+```
+
+Merging runs governance gates (if configured) and integrates changes in dependency order.
+
+### Other Operations
+
+```bash
+ruah task list [--json]       # List all tasks
+ruah task claimable [--json]  # Tasks ready to claim
+ruah task children <name>     # Show subtasks
+ruah task cancel <name>       # Cancel a task
+ruah task retry <name>        # Retry a failed task
+```
+
+## File Claims
+
+Claims prevent collisions before they happen:
+
+| Type | Meaning |
+|------|---------|
+| **owned** | Exclusive write access. No other task can modify these files. |
+| **shared** | Multiple tasks can modify. Merge conflicts are possible but expected. |
+| **read-only** | Task can read but not modify. No conflicts. |
+
+## Workflow DAGs
+
+Define multi-step workflows in markdown:
+
+```markdown title=".ruah/workflows/feature.md"
+- api-design:
+    files: src/api/**
+    executor: claude-code
+    prompt: Design the API endpoints
+
+- auth:
+    files: src/auth/**
+    executor: claude-code
+    prompt: Implement authentication
+    depends: [api-design]
+
+- ui:
+    files: src/ui/**
+    executor: aider
+    prompt: Build the dashboard
+    depends: [api-design]
+
+- integration:
+    files: src/**
+    executor: claude-code
+    prompt: Wire everything together
+    depends: [auth, ui]
+```
+
+Run the workflow:
+
+```bash
+ruah workflow run .ruah/workflows/feature.md
+ruah workflow plan .ruah/workflows/feature.md --json  # Preview
+ruah workflow resume feature                           # Resume paused
+ruah workflow explain feature                          # Show execution plan
+```
+
+## Supported Executors
+
+| Executor | Agent |
+|----------|-------|
+| `claude-code` | Claude Code CLI |
+| `aider` | Aider |
+| `codex` | OpenAI Codex CLI |
+| `open-code` | OpenCode |
+| `script` | Any shell command |
+| `raw` | Explicit shell execution |
+
+## Requirements
+
+- **Node.js** >= 18.0.0
+- **Git** repository
+- **Zero runtime dependencies**
+- **License:** MIT

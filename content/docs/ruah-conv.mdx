@@ -1,0 +1,124 @@
+---
+title: Converter
+description: Convert API specs into agent-ready tool surfaces — MCP, OpenAI, Anthropic, and more.
+---
+
+## Overview
+
+`@ruah-dev/conv` converts API specifications into agent-ready tool surfaces. Feed it an OpenAPI spec, get MCP tool definitions, function-calling schemas, or a full MCP server scaffold.
+
+```bash
+pnpm add -g @ruah-dev/conv
+```
+
+## Architecture
+
+The converter uses an intermediate representation (IR) so adding input formats and output targets is independent:
+
+```
+Input Formats              IR                    Output Targets
+──────────────          ──────────              ──────────────
+OpenAPI 3.x    ─┐                         ┌─→  MCP Tool Defs
+Swagger 2.0    ─┤                         ├─→  MCP Server (TS)
+Postman v2.1   ─┼─→  Ruah Tool Schema  ─┼─→  MCP Server (Py)
+GraphQL SDL    ─┤                         ├─→  OpenAI Tools
+HAR files      ─┘                         ├─→  Anthropic Tools
+                                          └─→  A2A Service
+```
+
+Never N×M — add an input format or output target independently.
+
+## Commands
+
+### generate
+
+Parse a spec and generate output:
+
+```bash
+# MCP tool definitions (default)
+ruah conv generate ./spec.yaml --json
+
+# OpenAI function-calling schemas
+ruah conv generate ./spec.yaml --target openai-tools --json
+
+# Full TypeScript MCP server
+ruah conv generate ./spec.yaml --target mcp-ts-server --output ./server
+
+# Python MCP server with FastMCP
+ruah conv generate ./spec.yaml --target mcp-py-server --output ./server
+```
+
+**Options:**
+- `--target <id>` — output target (default: `mcp-tool-defs`)
+- `--output <dir>` — output directory (default: stdout)
+- `--name <value>` — override server/service name
+- `--transport <mode>` — transport hint (`streamable-http`, etc.)
+- `--config <path>` — load defaults from JSON
+- `--json` — output as JSON
+
+### inspect
+
+Parse and display a summary of the intermediate representation:
+
+```bash
+ruah conv inspect ./spec.yaml
+ruah conv inspect ./spec.yaml --json  # Full IR as JSON
+```
+
+### validate
+
+Check a spec for issues before generating:
+
+```bash
+ruah conv validate ./spec.yaml
+ruah conv validate ./spec.yaml --json
+```
+
+### targets
+
+List all available output targets:
+
+```bash
+ruah conv targets
+ruah conv targets --json
+```
+
+## Risk Classification
+
+Every generated tool gets a risk level based on the HTTP method:
+
+| Risk Level | Methods | Meaning |
+|------------|---------|---------|
+| **safe** | GET, HEAD, OPTIONS | Read-only, no side effects |
+| **moderate** | POST, PUT, PATCH | Creates or modifies data |
+| **destructive** | DELETE | Removes data |
+
+## Configuration
+
+Defaults via `ruah.conv.json`, `.ruah-conv.json`, or `ruah.conv.config.json`:
+
+```json title="ruah.conv.json"
+{
+  "target": "mcp-ts-server",
+  "output": "./generated/server",
+  "name": "Billing MCP Server",
+  "transport": "streamable-http"
+}
+```
+
+## Programmatic API
+
+```typescript
+import { parse, validateIR, generate } from "@ruah-dev/conv";
+
+const ir = parse("./petstore.yaml");
+const warnings = validateIR(ir);
+const result = generate("mcp-tool-defs", ir);
+console.log(result.files[0].content);
+```
+
+## Requirements
+
+- **Node.js** >= 18.0.0
+- **Runtime dependency:** `yaml` (single)
+- **License:** MIT

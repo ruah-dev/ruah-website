@@ -1,0 +1,73 @@
+---
+title: CLI
+description: Top-level CLI router for the ruah ecosystem. One install, every tool.
+---
+
+## Overview
+
+`@ruah-dev/cli` is the unified entry point for the ruah toolchain. Install one package and access both the orchestration (`orch`) and conversion (`conv`) subsystems.
+
+```bash
+pnpm add -g @ruah-dev/cli
+```
+
+## Namespace Architecture
+
+The CLI routes commands through two namespaces:
+
+```
+ruah                    ← top-level router
+├── ruah orch ...       ← explicit orchestration namespace
+├── ruah conv ...       ← explicit conversion namespace
+├── ruah task ...       ← shorthand for orch task
+├── ruah workflow ...   ← shorthand for orch workflow
+└── ruah init/setup/... ← shorthand for orch commands
+```
+
+Shorthand works because `orch` commands are used most frequently. You can always use the explicit namespace if you prefer clarity.
+
+## Command Reference
+
+| Command | Description |
+|---------|-------------|
+| `ruah init [--force]` | Initialize `.ruah/` in a git repo |
+| `ruah setup [--force]` | Register with AI agents |
+| `ruah task <subcommand>` | Task management (create, start, done, merge, list, cancel) |
+| `ruah workflow <subcommand>` | Workflow DAG execution (run, plan, explain, list) |
+| `ruah status [--json]` | Show orchestration dashboard |
+| `ruah doctor [--json]` | Validate repo health |
+| `ruah clean [--dry-run]` | Remove stale tasks |
+| `ruah config` | Show resolved configuration |
+| `ruah demo [--fast]` | Interactive walkthrough |
+
+## Examples
+
+```bash
+# Explicit namespace
+ruah orch task create api --files "src/api/**" --executor claude-code
+
+# Shorthand (equivalent)
+ruah task create api --files "src/api/**" --executor claude-code
+
+# Conversion tools
+ruah conv inspect petstore.yaml
+ruah conv generate petstore.yaml --json
+```
+
+## Configuration
+
+The CLI reads configuration from `.ruahrc` or `package.json#ruah`:
+
+```json title=".ruahrc"
+{
+  "workspace": { "backend": "worktree" },
+  "artifacts": { "capture": true },
+  "compatibility": { "check": true },
+  "defaults": { "executor": "claude-code" }
+}
+```
+
+## Requirements
+
+- **Node.js** >= 18.0.0
+- **License:** MIT
