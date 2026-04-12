@@ -339,7 +339,7 @@ function MultiStepTerminal({
       {/* Terminal body */}
       <div
         ref={bodyRef}
-        className="bg-surface-2 p-5 min-h-[320px] max-h-[420px] overflow-y-auto scrollbar-thin"
+        className="bg-surface-2 p-5 h-[350px] overflow-y-auto scrollbar-thin"
       >
         <pre className="font-mono text-[13px] leading-relaxed whitespace-pre-wrap">
           {/* Completed steps */}

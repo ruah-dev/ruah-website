@@ -131,6 +131,7 @@ export function AnimatedTerminal({
   const [cursorVisible, setCursorVisible] = useState(true);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
   // Intersection observer — start animation when visible
@@ -144,6 +145,13 @@ export function AnimatedTerminal({
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  // Auto-scroll as output appears
+  useEffect(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+    }
+  }, [typedChars, visibleLines, phase]);
 
   // Cursor blink
   useEffect(() => {
@@ -235,8 +243,8 @@ export function AnimatedTerminal({
         </div>
       </div>
 
-      {/* Terminal body */}
-      <div className="bg-surface-2 p-5 min-h-[280px]">
+      {/* Terminal body — fixed height, scrollable */}
+      <div ref={bodyRef} className="bg-surface-2 p-5 h-[350px] overflow-y-auto scrollbar-thin">
         <pre className="font-mono text-[13px] leading-relaxed whitespace-pre-wrap">
           {/* Command line */}
           <span className="text-ruah-400">❯ </span>
