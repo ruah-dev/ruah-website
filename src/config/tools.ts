@@ -11,6 +11,8 @@ export interface ToolConfig {
   color: string;
   demoGif?: string;
   demoAlt?: string;
+  /** Use an animated React terminal instead of a GIF */
+  demoAnimated?: boolean;
 }
 
 export const tools: ToolConfig[] = [
@@ -55,7 +57,7 @@ export const tools: ToolConfig[] = [
     install: "npm i -g @ruah-dev/orch",
     github: "https://github.com/ruah-dev/ruah-orch",
     color: "var(--color-ruah-300)",
-    demoGif: "/demos/ruah-orch-demo.gif",
+    demoAnimated: true,
     demoAlt: "ruah demo — worktree isolation, file locking, conflict detection, and DAG scheduling",
     features: [
       "Git worktree isolation",
@@ -85,7 +87,7 @@ export const tools: ToolConfig[] = [
     install: "npm i -g @ruah-dev/conv",
     github: "https://github.com/ruah-dev/ruah-conv",
     color: "var(--color-ruah-200)",
-    demoGif: "/demos/ruah-conv-demo.gif",
+    demoAnimated: true,
     demoAlt: "ruah-conv — inspect, validate, and generate MCP tool definitions from API specs",
     features: [
       "OpenAPI, Swagger, Postman, GraphQL, HAR input",

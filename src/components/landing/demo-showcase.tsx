@@ -3,11 +3,13 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Section } from "@/components/shared/section";
 import { DemoTerminal } from "@/components/shared/demo-terminal";
+import { ConvDemo } from "@/components/tools/conv-demo";
+import { OrchDemo } from "@/components/tools/orch-demo";
 import { tools } from "@/config/tools";
 import Link from "next/link";
 import { ArrowRight, Check } from "@phosphor-icons/react";
 
-const demos = tools.filter((t) => t.demoGif);
+const demos = tools.filter((t) => t.demoGif || t.demoAnimated);
 
 export function DemoShowcase() {
   const reduced = useReducedMotion();
@@ -89,16 +91,22 @@ export function DemoShowcase() {
               </ul>
             </div>
 
-            {/* GIF side */}
+            {/* Demo side */}
             <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-              <DemoTerminal
-                src={tool.demoGif!}
-                alt={tool.demoAlt || `${tool.name} demo`}
-                title={tool.package}
-                width={560}
-                height={350}
-                delay={i * 0.05}
-              />
+              {tool.demoAnimated && tool.id === "ruah-conv" ? (
+                <ConvDemo delay={i * 0.05} />
+              ) : tool.demoAnimated && tool.id === "ruah-orch" ? (
+                <OrchDemo delay={i * 0.05} />
+              ) : tool.demoGif ? (
+                <DemoTerminal
+                  src={tool.demoGif}
+                  alt={tool.demoAlt || `${tool.name} demo`}
+                  title={tool.package}
+                  width={560}
+                  height={350}
+                  delay={i * 0.05}
+                />
+              ) : null}
             </div>
           </motion.div>
         ))}

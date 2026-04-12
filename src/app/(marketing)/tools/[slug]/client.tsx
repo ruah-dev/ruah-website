@@ -4,6 +4,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Section } from "@/components/shared/section";
 import { InstallCommand, Terminal } from "@/components/shared/terminal";
 import { DemoTerminal } from "@/components/shared/demo-terminal";
+import { ConvDemo } from "@/components/tools/conv-demo";
+import { OrchDemo } from "@/components/tools/orch-demo";
 import { ArrowRight, ArrowUpRight, GithubLogo } from "@phosphor-icons/react";
 import Link from "next/link";
 import { tools, type ToolConfig } from "@/config/tools";
@@ -134,8 +136,8 @@ export function ToolPageClient({ tool, executors, inputFormats, outputTargets }:
         </div>
       </Section>
 
-      {/* Demo GIF */}
-      {tool.demoGif && (
+      {/* Demo */}
+      {(tool.demoGif || tool.demoAnimated) && (
         <Section className="pb-16 md:pb-24">
           <motion.div
             className="mx-auto max-w-2xl"
@@ -147,11 +149,17 @@ export function ToolPageClient({ tool, executors, inputFormats, outputTargets }:
             <p className="text-xs font-medium uppercase tracking-[0.15em] text-warm-600 mb-6">
               See it
             </p>
-            <DemoTerminal
-              src={tool.demoGif}
-              alt={tool.demoAlt || `${tool.name} demo`}
-              title={tool.package}
-            />
+            {tool.demoAnimated && tool.id === "ruah-conv" ? (
+              <ConvDemo />
+            ) : tool.demoAnimated && tool.id === "ruah-orch" ? (
+              <OrchDemo />
+            ) : tool.demoGif ? (
+              <DemoTerminal
+                src={tool.demoGif}
+                alt={tool.demoAlt || `${tool.name} demo`}
+                title={tool.package}
+              />
+            ) : null}
           </motion.div>
         </Section>
       )}
