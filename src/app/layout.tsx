@@ -26,27 +26,27 @@ const jura = Jura({
 
 export const metadata: Metadata = {
   title: {
-    default: "ruah — Infrastructure for Agentic AI",
+    default: "ruah — Parallel coding agents, no merge conflicts",
     template: "%s | ruah",
   },
   description:
-    "The open-source toolchain that coordinates AI agents, converts API specs to tools, and keeps everything from colliding.",
+    "Run Claude Code, OpenCode & Codex side by side. Each gets its own git worktree; OpenAPI specs become MCP tools. Open-source CLI, MIT.",
   metadataBase: new URL("https://ruah.sh"),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://ruah.sh",
     siteName: "ruah",
-    title: "ruah — Infrastructure for Agentic AI",
+    title: "ruah — Parallel coding agents, no merge conflicts",
     description:
-      "Coordinate AI agents, convert API specs to tools, and merge everything without collisions.",
+      "Run Claude Code, OpenCode & Codex side by side. Each gets its own git worktree; OpenAPI specs become MCP tools.",
     images: [{ url: "/brand/ruah-github-social.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ruah — Infrastructure for Agentic AI",
+    title: "ruah — Parallel coding agents, no merge conflicts",
     description:
-      "Coordinate AI agents, convert API specs to tools, and merge everything without collisions.",
+      "Run Claude Code, OpenCode & Codex side by side. Each gets its own git worktree; OpenAPI specs become MCP tools.",
     images: ["/brand/ruah-twitter-banner.png"],
   },
   icons: {

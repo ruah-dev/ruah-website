@@ -28,7 +28,7 @@ $ ruah init
 $ ruah status
 # Active tasks: 0
 # Workflows: 0
-# Executors: claude-code, aider`,
+# Executors: claude-code, opencode`,
   "ruah-orch": `$ ruah task create auth-module \\
     --files "src/auth/**" \\
     --executor claude-code

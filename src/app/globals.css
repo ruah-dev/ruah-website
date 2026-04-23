@@ -26,7 +26,16 @@
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
 
-  /* Ruah teal — used sparingly */
+  /* --- Ruah semantic palette (6 colors) ---
+     Teal = brand/interactive
+     Lavender = AI/intelligence accent
+     Sage = success/merged
+     Amber = warning/in-progress
+     Coral = error/destructive
+     Slate = info/neutral metadata
+  */
+
+  /* Teal — brand, interactive, "claimed" */
   --color-ruah-50: #e8faf7;
   --color-ruah-100: #b8f0e7;
   --color-ruah-200: #88e6d7;
@@ -38,7 +47,31 @@
   --color-ruah-800: #005e54;
   --color-ruah-900: #003e38;
 
-  /* Amber accent — warnings, highlights, secondary emphasis */
+  /* Lavender — AI / intelligence / agent identity */
+  --color-lavender-50: #f3eeff;
+  --color-lavender-100: #e1d6fb;
+  --color-lavender-200: #cfbdf8;
+  --color-lavender-300: #c2a7f7;
+  --color-lavender-400: #b594f5;
+  --color-lavender-500: #9773e4;
+  --color-lavender-600: #7d58cc;
+  --color-lavender-700: #5f41a4;
+  --color-lavender-800: #412c74;
+  --color-lavender-900: #2a1c4e;
+
+  /* Sage — success / merged / complete */
+  --color-sage-50: #eef5e7;
+  --color-sage-100: #d5e5c3;
+  --color-sage-200: #bcd49e;
+  --color-sage-300: #9ec281;
+  --color-sage-400: #7fb069;
+  --color-sage-500: #67994f;
+  --color-sage-600: #507e3c;
+  --color-sage-700: #3c6029;
+  --color-sage-800: #2a441c;
+  --color-sage-900: #1b2d11;
+
+  /* Amber accent — warnings, in-progress, highlights */
   --color-amber-50: #fdf6e8;
   --color-amber-100: #fae8c2;
   --color-amber-200: #f4d48e;
@@ -61,6 +94,32 @@
   --color-coral-700: #94342f;
   --color-coral-800: #702622;
   --color-coral-900: #4c1916;
+
+  /* Slate — info / metadata / secondary neutral */
+  --color-slate-50: #eef1f5;
+  --color-slate-100: #d6dce5;
+  --color-slate-200: #b7c0cf;
+  --color-slate-300: #8a97ae;
+  --color-slate-400: #5b6b88;
+  --color-slate-500: #45536c;
+  --color-slate-600: #344054;
+  --color-slate-700: #26303e;
+  --color-slate-800: #1a2028;
+  --color-slate-900: #0f1319;
+
+  /* Spacing scale — 4px base (design system handoff) */
+  --spacing-sp-1: 4px;
+  --spacing-sp-2: 8px;
+  --spacing-sp-3: 12px;
+  --spacing-sp-4: 16px;
+  --spacing-sp-5: 20px;
+  --spacing-sp-6: 24px;
+  --spacing-sp-8: 32px;
+  --spacing-sp-10: 40px;
+  --spacing-sp-12: 48px;
+  --spacing-sp-16: 64px;
+  --spacing-sp-20: 80px;
+  --spacing-sp-24: 96px;
 
   /* Warm surface scale — charcoal with brown undertone */
   --color-surface-0: #111110;
@@ -119,6 +178,46 @@
 
 :root {
   --radius: 0.625rem;
+
+  /* Explicit radii tokens (design system handoff) */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+
+  /* Spacing tokens (4px base) — for direct CSS var() use */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* Elevation / motion tokens */
+  --shadow-card-soft: 0 1px 2px rgba(0,0,0,0.25), 0 12px 40px -16px rgba(0,0,0,0.35);
+  --shadow-elevated-soft: 0 6px 24px -6px rgba(0,0,0,0.35), 0 20px 60px -20px rgba(0,0,0,0.4);
+  --ease-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Semantic surface / foreground shortcuts (map to shadcn vars below) */
+  --bg: #111110;
+  --surface-1: #191918;
+  --surface-2: #222221;
+  --surface-3: #2a2a28;
+  --surface-4: #333331;
+  --fg: #f0eee9;
+  --fg-muted: #dedad3;
+  --fg-subtle: #8f8a7e;
+  --fg-dim: #706b60;
+  --border-soft: #2a2a28;
+  --border-strong: #333331;
 
   /* Warm charcoal base — NOT blue-black */
   --background: #111110;
@@ -223,6 +322,94 @@
       #2a2a28 80%,
       transparent
     );
+  }
+}
+
+/* --- Palette variants — swap accent at [data-palette] scope --- */
+[data-palette="dusk"] {
+  --primary: #8b6ed2;
+  --ring: #8b6ed2;
+  --accent-foreground: #b594f5;
+  --fd-primary: 139 110 210;
+}
+[data-palette="sunrise"] {
+  --primary: #d6854a;
+  --ring: #d6854a;
+  --accent-foreground: #e5a84b;
+  --fd-primary: 214 133 74;
+}
+
+/* --- Theme variants — light & high contrast (optional, additive) --- */
+[data-theme="light"] {
+  --background: #faf9f7;
+  --foreground: #1a1a19;
+  --card: #ffffff;
+  --card-foreground: #1a1a19;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a19;
+  --secondary: #f0eee9;
+  --secondary-foreground: #26262a;
+  --muted: #f0eee9;
+  --muted-foreground: #565248;
+  --accent: #e8faf7;
+  --accent-foreground: #007e70;
+  --border: #e4e1da;
+  --input: #e4e1da;
+  --bg: #faf9f7;
+  --surface-1: #ffffff;
+  --surface-2: #f6f4ef;
+  --surface-3: #ede9e1;
+  --surface-4: #e4e1da;
+  --fg: #1a1a19;
+  --fg-muted: #26262a;
+  --fg-subtle: #706b60;
+  --fg-dim: #8f8a7e;
+  --border-soft: #e4e1da;
+  --border-strong: #c9c4b9;
+  --fd-background-rgb: 250 249 247;
+}
+
+[data-theme="contrast"] {
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #0a0a0a;
+  --card-foreground: #ffffff;
+  --popover: #0a0a0a;
+  --popover-foreground: #ffffff;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #ffffff;
+  --muted: #1a1a1a;
+  --muted-foreground: #d0d0d0;
+  --accent: #002e27;
+  --accent-foreground: #00f0d3;
+  --border: #3a3a3a;
+  --input: #3a3a3a;
+  --ring: #00f0d3;
+  --primary: #00f0d3;
+  --bg: #000000;
+  --surface-1: #0a0a0a;
+  --surface-2: #1a1a1a;
+  --surface-3: #2a2a2a;
+  --surface-4: #3a3a3a;
+  --fg: #ffffff;
+  --fg-muted: #f0f0f0;
+  --fg-subtle: #b0b0b0;
+  --fg-dim: #909090;
+  --border-soft: #3a3a3a;
+  --border-strong: #5a5a5a;
+  --fd-background-rgb: 0 0 0;
+  --fd-primary: 0 240 211;
+}
+
+/* Respect users who prefer less motion — applied globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

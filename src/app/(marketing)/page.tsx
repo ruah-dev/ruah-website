@@ -1,25 +1,23 @@
 import { Hero } from "@/components/landing/hero";
-import { ProofStrip } from "@/components/landing/proof-strip";
 import { ToolCards } from "@/components/landing/tool-cards";
-import { CalloutStrip } from "@/components/landing/callout-strip";
-import { CodeExample } from "@/components/landing/code-example";
-import { DemoShowcase } from "@/components/landing/demo-showcase";
-import { FeatureGrid } from "@/components/landing/feature-grid";
-import { ExecutorMarquee } from "@/components/landing/executor-marquee";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { InstallCTA } from "@/components/landing/install-cta";
 
+/**
+ * Landing page — 4 sections, per marketing critique §07.
+ * Cut: ProofStrip (no adoption yet), Capabilities (filler after demo),
+ * ImpactMetrics (unverified stats), Testimonials (we have none).
+ *
+ * 1. Hero         — named tools, live workflow diagram, Phantom
+ * 2. ToolCards    — the three products in the toolchain
+ * 3. HowItWorks   — 3 steps + live terminal demo (merged per redesign)
+ * 4. InstallCTA   — single-command install + quickstart link
+ */
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <ProofStrip />
       <ToolCards />
-      <CalloutStrip />
-      <CodeExample />
-      <DemoShowcase />
-      <FeatureGrid />
-      <ExecutorMarquee />
       <HowItWorks />
       <InstallCTA />
     </>

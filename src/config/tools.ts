@@ -108,9 +108,8 @@ export const tools: ToolConfig[] = [
 
 export const executors = [
   { name: "claude-code", label: "Claude Code" },
-  { name: "aider", label: "Aider" },
-  { name: "codex", label: "OpenAI Codex" },
   { name: "open-code", label: "OpenCode" },
+  { name: "codex", label: "OpenAI Codex" },
   { name: "script", label: "Shell Script" },
   { name: "raw", label: "Raw Shell" },
 ] as const;
