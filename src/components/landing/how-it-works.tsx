@@ -19,52 +19,44 @@ const PHANTOM_EXPRESSIONS = ["idle", "thinking", "success"] as const;
 
 const STEPS = [
   {
-    title: "Define tasks",
+    title: "Convert any API into agent tools",
     body:
-      "Declare each agent's scope in markdown or CLI. Files, executor, and dependencies — three lines per task.",
-    terminal: `# .ruah/workflows/feature.md
-- auth:
-    files: src/auth/**
-    executor: claude-code
+      "Feed Ruah an OpenAPI, Swagger, Postman, GraphQL, or HAR spec. Get MCP tool definitions, function-calling schemas, or a typed server scaffold — risk-classified for free.",
+    terminal: `$ ruah conv generate stripe.yaml \\
+    --target mcp-ts-server
 
-- ui:
-    files: src/ui/**
-    executor: opencode
-    depends: [auth]
-
-- db:
-    files: src/db/**
-    executor: codex`,
-    title_label: "01 · define",
+→ Parsed 47 operations
+→ Generated 47 tools
+→ Risk: 32 safe · 12 moderate · 3 destructive
+→ Wrote ./out/mcp-server (TypeScript)`,
+    title_label: "01 · convert",
   },
   {
-    title: "Run in parallel",
+    title: "Isolate every agent in its own worktree",
     body:
-      "Each task gets an isolated git worktree. Agents that don't overlap run simultaneously. File claims prevent collisions before they happen.",
+      "Declare each task's file scope. Ruah spins up an isolated git worktree, locks owned paths, and lets non-overlapping work run in parallel without clobbering.",
+    terminal: `$ ruah task create checkout \\
+    --files "src/checkout/**" \\
+    --executor claude-code
+
+✓ Worktree → .worktrees/checkout
+✓ Claimed: src/checkout/** (owned)
+✓ Ready — claude-code assigned`,
+    title_label: "02 · isolate",
+  },
+  {
+    title: "Run the whole workflow from one CLI",
+    body:
+      "One entry point routes prompts, schedules the DAG, runs governance gates, and merges back in dependency order. Same command works for Claude Code, OpenCode, or Codex.",
     terminal: `$ ruah workflow run feature.md
 
-[auth] Worktree created → .worktrees/auth
-[auth] Claimed: src/auth/**    (owned)
-[auth] Executing with claude-code…
-[db]   Worktree created → .worktrees/db
-[db]   Claimed: src/db/**      (owned)
-[db]   Executing with codex…
-[ui]   Waiting on: auth`,
-    title_label: "02 · run",
-  },
-  {
-    title: "Merge in order",
-    body:
-      "Changes merge back in dependency order. Governance gates validate each step. Clean commit history. Zero conflicts.",
-    terminal: `$ ruah workflow status
-
-auth ........... ✓ merged
-db ............. ✓ merged
-ui ............. ✓ merged
+[checkout] Executing with claude-code…
+[payments] Executing with codex…
+[ui]       Waiting on: checkout
 
 3/3 tasks complete.
 0 conflicts. 0 gate failures.`,
-    title_label: "03 · merge",
+    title_label: "03 · run",
   },
 ];
 
@@ -99,11 +91,12 @@ export function HowItWorks() {
           How it works
         </p>
         <h2 className="mt-4 text-display text-4xl md:text-5xl">
-          Three steps.{" "}
-          <span className="italic text-ruah-400">Watch it work.</span>
+          Three primitives.{" "}
+          <span className="italic text-ruah-400">Composed.</span>
         </h2>
         <p className="mt-4 max-w-xl text-warm-400">
-          Click a step to jump. Demo cycles automatically — hover to pause.
+          Each tool stands alone — together they form the toolchain. Click a
+          step to jump. Demo cycles automatically — hover to pause.
         </p>
       </motion.div>
 
@@ -197,9 +190,9 @@ export function HowItWorks() {
               noFloat={!!reduced}
             />
             <p className="font-serif italic text-sm text-warm-400">
-              {active === 0 && "reading the workflow…"}
-              {active === 1 && "watching the agents work…"}
-              {active === 2 && "merged, gates passed."}
+              {active === 0 && "translating the spec into tools…"}
+              {active === 1 && "carving out a worktree…"}
+              {active === 2 && "running the toolchain end-to-end."}
             </p>
           </div>
         </motion.div>

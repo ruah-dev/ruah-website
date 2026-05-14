@@ -104,13 +104,14 @@ export function Roadmap() {
           The roadmap
         </p>
         <h2 className="mt-4 text-display text-4xl md:text-5xl">
-          Eleven more tools.{" "}
-          <span className="italic text-ruah-400">On the way.</span>
+          An expanding toolchain.{" "}
+          <span className="italic text-ruah-400">Eleven more on the way.</span>
         </h2>
         <p className="mt-4 text-warm-400">
-          Open-core ecosystem. CLI and runtime stay OSS; team dashboards,
-          policy management, and hosted registry ship as Ruah Cloud.
-          Shipping when the signal says so — not when a calendar does.
+          Open-core by default. The CLI and runtime stay OSS; team dashboards,
+          policy management, and the hosted registry ship as Ruah Cloud.
+          Each new tool earns its slot — shipping when the signal says so,
+          not when a calendar does.
         </p>
       </motion.div>
 

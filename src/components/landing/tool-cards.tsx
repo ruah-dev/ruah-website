@@ -21,15 +21,18 @@ export function ToolCards() {
 
   return (
     <Section className="relative z-20">
-      <div className="mb-12">
+      <div className="mb-12 max-w-2xl">
         <p className="text-sm font-medium uppercase tracking-[0.15em] text-warm-500">
-          The Toolchain
+          The toolchain
         </p>
         <h2 className="mt-4 text-display text-4xl md:text-5xl">
-          Three tools.
-          <br />
-          <span className="italic text-warm-300">One ecosystem.</span>
+          Three primitives.{" "}
+          <span className="italic text-ruah-400">One CLI.</span>
         </h2>
+        <p className="mt-4 text-warm-400">
+          Isolate parallel agents. Convert APIs into agent-ready tools. Run
+          it all from a single entry point.
+        </p>
       </div>
 
       {/* Uniform grid — all cards same layout */}

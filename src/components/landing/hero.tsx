@@ -86,18 +86,17 @@ export function Hero() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-ruah-400" />
               </span>
               <span className="text-[11px] font-medium tracking-[0.12em] uppercase text-warm-300">
-                Claude Code · OpenCode · Codex — in parallel
+                Open-source toolchain · Built for AI agents
               </span>
             </motion.div>
 
             <h1 className="mt-5 text-display text-[2.25rem] leading-[1.05] sm:text-5xl md:text-6xl lg:text-[4.25rem] [perspective:800px]">
-              <SplitText text="Three coding agents." delay={0.15} />
+              <SplitText text="The toolchain for" delay={0.15} />
               <br />
-              <SplitText text="One repo." delay={0.45} />{" "}
               <span className="italic text-ruah-400">
-                <SplitText text="Zero" delay={0.6} />
+                <SplitText text="AI-native" delay={0.45} />
               </span>{" "}
-              <SplitText text="merge conflicts." delay={0.75} />
+              <SplitText text="development." delay={0.6} />
             </h1>
 
             <motion.p
@@ -106,10 +105,9 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
             >
-              Ruah spins each agent into its own git worktree, routes prompts,
-              and turns any OpenAPI spec into MCP tools. So Claude Code,
-              OpenCode, and Codex can work in parallel without clobbering each
-              other&rsquo;s changes.
+              Ruah gives every agent its own worktree, turns any API into
+              agent-ready tools, and runs it all from one CLI. Built for Claude
+              Code, OpenCode, Codex &mdash; and whatever ships next.
             </motion.p>
 
             <motion.div

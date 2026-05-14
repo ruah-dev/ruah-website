@@ -56,7 +56,8 @@ export function InstallCTA() {
             Install
           </p>
           <h2 className="mt-4 text-display text-4xl md:text-6xl">
-            Three agents. <span className="italic text-ruah-400">One command.</span>
+            One install.{" "}
+            <span className="italic text-ruah-400">The whole toolchain.</span>
           </h2>
           <p className="mt-5 text-warm-400 md:text-lg">
             Node.js 18+ · Zero runtime dependencies · MIT licensed.

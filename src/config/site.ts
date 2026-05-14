@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "ruah",
-  title: "ruah — Parallel coding agents, no merge conflicts",
+  title: "Ruah — The toolchain for AI-native development",
   description:
-    "Run Claude Code, OpenCode & Codex side by side. Each gets its own git worktree; OpenAPI specs become MCP tools. Open-source CLI, MIT.",
+    "Open-source primitives for the AI era. Isolated worktrees for parallel agents, agent-ready tools from any API spec, and one CLI to run it all. MIT.",
   url: "https://ruah.sh",
   github: "https://github.com/ruah-dev",
   npm: "https://www.npmjs.com/org/ruah-dev",
