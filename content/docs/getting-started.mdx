@@ -83,8 +83,19 @@ ruah demo
 
 This walks you through the full workflow interactively.
 
+## Daily-driver tools (no orchestrator required)
+
+```bash
+ruah guard check --cmd 'rm -rf /' --json
+ruah verify init && ruah verify run
+ruah opt analyze ~/.claude/projects/<slug>/
+ruah watch render --latest --out replay.html
+ruah conv curate ./openapi.yaml
+```
+
 ## Next Steps
 
 - [CLI Reference](/docs/ruah-cli) — all commands and options
+- [Guard](/docs/ruah-guard) · [Verify](/docs/ruah-verify) · [Opt](/docs/ruah-opt)
+- [Watch](/docs/ruah-watch) · [Eval](/docs/ruah-eval) · [Conversion](/docs/ruah-conv)
 - [Orchestration Concepts](/docs/ruah-orch) — workspaces, claims, workflows
-- [API Conversion](/docs/ruah-conv) — convert specs to agent tools

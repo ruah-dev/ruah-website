@@ -3,17 +3,41 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { tools } from "@/config/tools";
 import { Section } from "@/components/shared/section";
-import { ArrowRight, Terminal, GitBranch, ArrowsClockwise } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  Terminal,
+  GitBranch,
+  ArrowsClockwise,
+  ShieldCheck,
+  CheckCircle,
+  ChartLine,
+  Play,
+  Scales,
+} from "@phosphor-icons/react";
 import { highlightTerminal } from "@/components/shared/terminal";
 import Link from "next/link";
 import type { Icon } from "@phosphor-icons/react";
 
-const icons: Icon[] = [Terminal, GitBranch, ArrowsClockwise];
+const icons: Icon[] = [
+  Terminal,
+  GitBranch,
+  ArrowsClockwise,
+  ShieldCheck,
+  CheckCircle,
+  ChartLine,
+  Play,
+  Scales,
+];
 
 const codeSnippets = [
   `$ ruah init\n$ ruah task create api \\\n    --executor claude-code\n$ ruah status`,
   `$ ruah task create auth \\\n    --files "src/auth/**"\n$ ruah task start auth\n# ✓ Worktree created\n# ✓ Claims established`,
-  `$ ruah conv generate spec.yaml \\\n    --target mcp-ts-server\n# → 12 tools generated\n# → Risk: 8 safe, 3 moderate, 1 destructive`,
+  `$ ruah conv curate spec.yaml\n# 29 endpoints → 10 tools\n# ~226 tok (was ~540)`,
+  `$ ruah guard check --cmd 'rm -rf /'\n# deny  deny-rm-root`,
+  `$ ruah verify run\n# VERDICT: PASS`,
+  `$ ruah opt analyze --json\n# tokensIn / tokensOut / cost`,
+  `$ ruah watch render --latest\n# wrote replay.html`,
+  `$ ruah eval run spec.json --runs 5`,
 ];
 
 export function ToolCards() {
@@ -26,19 +50,19 @@ export function ToolCards() {
           The toolchain
         </p>
         <h2 className="mt-4 text-display text-4xl md:text-5xl">
-          Three primitives.{" "}
+          Six tools.{" "}
           <span className="italic text-ruah-400">One CLI.</span>
         </h2>
         <p className="mt-4 text-warm-400">
-          Isolate parallel agents. Convert APIs into agent-ready tools. Run
-          it all from a single entry point.
+          Guard the loop, prove done, price it, replay it, compare it, feed
+          it APIs. Each tool works standalone.
         </p>
       </div>
 
       {/* Uniform grid — all cards same layout */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         {tools.map((tool, i) => {
-          const Icon = icons[i];
+          const Icon = icons[i] ?? Terminal;
           return (
             <motion.div
               key={tool.id}

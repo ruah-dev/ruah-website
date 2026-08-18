@@ -1,0 +1,21 @@
+---
+title: Watch
+description: Trace replay you can share — static HTML, no server.
+---
+
+## Overview
+
+`@ruah-dev/watch` turns one agent session into a self-contained HTML replay: timeline, expandable tool calls, token strip, Edit diffs, optional verify verdict.
+
+```bash
+ruah watch render --latest --out replay.html
+ruah watch render session.jsonl --out replay.html --verify report.json
+```
+
+`--redact` is **on by default** (home paths, emails, `ENV=value`, secret prefixes). `--no-redact` leaves the text as recorded.
+
+Requires Node.js >= 18. **Zero runtime dependencies.** Peer: `@ruah-dev/schema`.
+
+## Not this package
+
+No live tail, no server, no multi-session dashboard. That is the parked full Watch.

@@ -1,0 +1,37 @@
+---
+title: Verify
+description: Definition of done as code — the agent says it's done, prove it.
+---
+
+## Overview
+
+`@ruah-dev/verify` is the independent referee. Acceptance criteria are machine-runnable checks; anything that cannot be checked is `unverifiable`, never silently passed.
+
+```bash
+cd your-repo
+ruah verify init
+ruah verify run
+ruah verify report --format md
+```
+
+Requires Node.js >= 18. **Zero runtime dependencies.** Peer: `@ruah-dev/schema`.
+
+## Criteria types
+
+- shell command (exit code)
+- file exists / absent
+- file matches regex
+- JSON validates
+- no-diff (formatter idempotence)
+- custom script
+
+Each criterion has an id, description, check, and evidence. Timeouts are first-class. Runs are parallel by default (`--serial` to opt out).
+
+## JSON + CI
+
+```bash
+ruah verify run --json
+# exit 0 only when zero criteria failed
+```
+
+`ruah verify init` detects the stack from `package.json` and writes `.ruah/verify.json`.

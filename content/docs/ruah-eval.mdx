@@ -1,0 +1,25 @@
+---
+title: Eval
+description: Same task, N executors, receipts — pass rate, cost, wall time.
+---
+
+## Overview
+
+`@ruah-dev/eval` is a micro-benchmark harness. One task (prompt + seed files), N executors, acceptance criteria as the judge, fresh sandbox per run.
+
+```bash
+ruah eval init
+ruah eval run .ruah/evals/sample-eval.json --out results.json
+ruah eval run spec.json --runs 5
+ruah eval compare a.json b.json
+ruah eval report scorecard.json --format md
+ruah eval report scorecard.json --format html
+```
+
+Requires Node.js >= 18. Criteria are **verify-shaped** (command / file_absent / file_matches / unverifiable) but judged in-process — eval does not import `@ruah-dev/verify`.
+
+## Acceptance
+
+- Sandboxes are always temp dirs. Writing outside fails the run.
+- `unverifiable` never becomes `pass`.
+- Mock executors exist so the harness can test itself without API keys.

@@ -5,7 +5,7 @@ description: Top-level CLI router for the ruah ecosystem. One install, every too
 
 ## Overview
 
-`@ruah-dev/cli` is the unified entry point for the ruah toolchain. Install one package and access both the orchestration (`orch`) and conversion (`conv`) subsystems.
+`@ruah-dev/cli` is the unified entry point for the ruah toolchain. Install one package and `ruah <tool>` routes to whatever is installed — or to a sibling checkout in this workspace.
 
 ```bash
 pnpm add -g @ruah-dev/cli
@@ -13,15 +13,14 @@ pnpm add -g @ruah-dev/cli
 
 ## Namespace Architecture
 
-The CLI routes commands through two namespaces:
+The CLI routes `ruah <namespace>` to each package's `"ruah"` field:
 
 ```
 ruah                    ← top-level router
-├── ruah orch ...       ← explicit orchestration namespace
-├── ruah conv ...       ← explicit conversion namespace
+├── ruah guard|verify|opt|watch|eval|conv|orch
 ├── ruah task ...       ← shorthand for orch task
 ├── ruah workflow ...   ← shorthand for orch workflow
-└── ruah init/setup/... ← shorthand for orch commands
+└── ruah doctor         ← repo / workspace health (runs before orch shortcuts)
 ```
 
 Shorthand works because `orch` commands are used most frequently. You can always use the explicit namespace if you prefer clarity.

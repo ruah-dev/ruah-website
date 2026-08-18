@@ -1,0 +1,31 @@
+---
+title: Optimizer
+description: Token X-ray — read agent traces and show exactly where money went.
+---
+
+## Overview
+
+`@ruah-dev/opt` profiles spend. Phase 1 is measure-only: no compaction, no routing.
+
+```bash
+ruah opt analyze ~/.claude/projects/<proj>/
+ruah opt waste session.jsonl
+ruah opt report --format html --out report.html
+```
+
+Reads Claude Code JSONL (scans the first 30 lines so `custom-title` / `mode` headers still match), canonical `Trace` objects, or a file list.
+
+Requires Node.js >= 18. **Zero runtime dependencies.** Peer: `@ruah-dev/schema`.
+
+## Waste heuristics
+
+- **H1** oversized tool results
+- **H2** repeated identical tool outputs
+- **H3** dead / truncated context
+- **H4** repeated file reads
+
+Each finding has a one-line fix. Cache read/write totals are summed as the transcript reported them — they are not unique cache size.
+
+## HTML report
+
+Single self-contained file. Inline SVG, no CDN, no network. Dark/light friendly.

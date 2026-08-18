@@ -56,6 +56,19 @@ ruah conv generate ./spec.yaml --target mcp-py-server --output ./server
 - `--config <path>` — load defaults from JSON
 - `--json` — output as JSON
 
+### curate
+
+Collapse a large spec into ≤10 task-shaped tools. Collection + item CRUD on the same resource become `managePets` with an `action` enum. Every drop has a reason.
+
+```bash
+ruah conv curate ./spec.yaml
+ruah conv curate ./spec.yaml --preset standard --out ./curated
+ruah conv generate ./spec.yaml --curate --json
+ruah conv generate ./spec.yaml --plan ./curated/curation.json --output ./generated
+```
+
+**Presets:** `minimal` (5 read-only families), `standard` (default, ≤10), `full` (no cap, still drops deprecated). `--interactive` walks accept/split/drop on a TTY. `--plan` replays a saved `curation.json` and reports drift.
+
 ### inspect
 
 Parse and display a summary of the intermediate representation:

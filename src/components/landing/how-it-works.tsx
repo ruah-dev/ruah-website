@@ -91,7 +91,7 @@ export function HowItWorks() {
           How it works
         </p>
         <h2 className="mt-4 text-display text-4xl md:text-5xl">
-          Three primitives.{" "}
+          Six tools.{" "}
           <span className="italic text-ruah-400">Composed.</span>
         </h2>
         <p className="mt-4 max-w-xl text-warm-400">

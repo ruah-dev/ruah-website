@@ -1,0 +1,41 @@
+---
+title: Guard
+description: Policies for agent tool calls — block destructive commands, catch secrets, bound the blast radius.
+---
+
+## Overview
+
+`@ruah-dev/guard` sits between an agent and the world. Deterministic rules only — no LLM "intent detection".
+
+```bash
+npx @ruah-dev/guard init
+npx @ruah-dev/guard check --cmd 'rm -rf /' --json
+echo '{"tool":"Bash","command":"rm -rf /"}' | npx @ruah-dev/guard hook --stdin
+```
+
+Requires Node.js >= 18. **Zero runtime dependencies.** Peer: `@ruah-dev/schema`.
+
+## Commands
+
+```bash
+ruah guard check --cmd "rm -rf /"
+ruah guard check --file staged.diff
+ruah guard hook claude-code
+ruah guard hook --stdin --fail-open
+ruah guard audit --last 50 --json
+ruah guard init
+```
+
+Exit codes: `0` allow, `1` deny / findings / user error, `2` internal error.
+
+## Policy
+
+`.ruah/guard.json`, validated against `Policy` from `@ruah-dev/schema`. Built-in defaults deny `rm -rf /` `~` `.`, `dd`, `mkfs`, DROP/TRUNCATE, force-push to main, `curl|bash`, `chmod 777`, `> /dev/sd*`, `git reset --hard` + `clean -fd`, `base64 -d | sh`. Wrappers (`sudo`, `bash -c`, `$HOME`, `;` / `&&`) are expanded first.
+
+Secrets: Stripe / Anthropic / AWS / GitHub / PEM / JWT / high-entropy. Excerpts are `sk_live_••••`. Allowlist via `secrets.allow` in `guard.json`.
+
+## Composition
+
+```bash
+ruah guard check --cmd "$CMD" --json | jq -e '.decision == "allow"'
+```

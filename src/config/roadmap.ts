@@ -38,7 +38,7 @@ export const roadmap: RoadmapEntry[] = [
     name: "Optimizer",
     tagline: "Cost & context, measured.",
     blurb:
-      "Token counts, wasted-token detection, model routing, and budget policies per workflow. Ships as analytics first.",
+      "Token counts, wasted-token detection, model routing, and budget policies per workflow. Profiler (`@ruah-dev/opt`) is shipped; routing is later.",
     status: "in-development",
   },
   {
@@ -87,8 +87,8 @@ export const roadmap: RoadmapEntry[] = [
     name: "Guard",
     tagline: "Policy engine for agents.",
     blurb:
-      "Permissions, approval gates, secrets detection, and audit logs. Human-in-the-loop for destructive actions.",
-    status: "coming-soon",
+      "CLI/core shipped as `@ruah-dev/guard`. Hosted policy + tenant isolation stays enterprise later.",
+    status: "in-development",
     enterprise: true,
   },
   {
@@ -114,7 +114,7 @@ export const roadmap: RoadmapEntry[] = [
     name: "Watch",
     tagline: "Live workflow UI.",
     blurb:
-      "Visual DAG editor, live execution monitoring, policy management, and cost dashboards — WebSocket-powered.",
+      "Replay-lite shipped as `@ruah-dev/watch` (static HTML). Live tail + DAG studio stays parked.",
     status: "coming-soon",
     enterprise: true,
   },

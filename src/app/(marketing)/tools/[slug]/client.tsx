@@ -39,16 +39,21 @@ $ ruah status
 $ ruah task start auth-module
 # → Executor: claude-code
 # → Working in isolated worktree...`,
-  "ruah-conv": `$ ruah conv generate api.yaml \\
-    --target mcp-server \\
-    --language typescript
+  "ruah-conv": `$ ruah conv curate api.yaml
+# 29 endpoints → 10 tools
+# ~226 tok of definitions (was ~540)
 
-# ✓ Parsed: 24 endpoints
-# ✓ Classified: 8 safe, 12 moderate, 4 destructive
-# ✓ Generated: src/mcp-server/
-#   → 24 tool definitions
-#   → Type-safe schemas
-#   → Ready to serve`,
+$ ruah conv generate api.yaml --curate --json`,
+  "ruah-guard": `$ ruah guard check --cmd 'rm -rf /' --json
+# { "decision": "deny", "ruleId": "deny-rm-root" }`,
+  "ruah-verify": `$ ruah verify run
+# VERDICT: PASS  4/4`,
+  "ruah-opt": `$ ruah opt analyze ~/.claude/projects/<slug>/
+# 492 spans  ~$14.59`,
+  "ruah-watch": `$ ruah watch render --latest --out replay.html
+# wrote replay.html (redacted)`,
+  "ruah-eval": `$ ruah eval run spec.json --runs 5
+# mock-pass 1.0   mock-fail 0.0`,
 };
 
 const highlightData: Record<string, { value: string; label: string }[]> = {
@@ -64,8 +69,33 @@ const highlightData: Record<string, { value: string; label: string }[]> = {
   ],
   "ruah-conv": [
     { value: "5", label: "Input formats" },
-    { value: "6", label: "Output targets" },
+    { value: "≤10", label: "Curated tools" },
     { value: "1", label: "Dependency" },
+  ],
+  "ruah-guard": [
+    { value: "<50ms", label: "Deny verdict" },
+    { value: "0", label: "Runtime deps" },
+    { value: "ask", label: "Approval action" },
+  ],
+  "ruah-verify": [
+    { value: "6+", label: "Check types" },
+    { value: "0", label: "Silent drops" },
+    { value: "CI", label: "Exit codes" },
+  ],
+  "ruah-opt": [
+    { value: "CC", label: "JSONL adapter" },
+    { value: "H1–H4", label: "Waste rules" },
+    { value: "0", label: "CDN in reports" },
+  ],
+  "ruah-watch": [
+    { value: "1", label: "HTML file" },
+    { value: "on", label: "Redact default" },
+    { value: "0", label: "Server" },
+  ],
+  "ruah-eval": [
+    { value: "N", label: "Executors" },
+    { value: "tmp", label: "Sandbox" },
+    { value: "md|html", label: "Scorecard" },
   ],
 };
 
