@@ -1,7 +1,15 @@
 ---
 title: Guard
-description: Policies for agent tool calls — block destructive commands, catch secrets, bound the blast radius.
+description: Can I trust the agent not to do damage — in any harness, with proof?
 ---
+
+> **Can I trust the agent not to do damage — in *any* harness, with proof?**
+
+One deterministic policy file. The same verdict in Claude Code, Codex, Cursor, CI, and a local `check`. Backed by a bypass-attempt suite. The edge over built-in permission modes is **portable and testable**, not "it blocks `rm -rf`".
+
+<p align="center">
+  <img src="/demos/ruah-guard-demo.gif" alt="ruah guard denies rm -rf with a rule id" width="100%" />
+</p>
 
 ## Overview
 
