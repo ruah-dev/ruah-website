@@ -3,6 +3,8 @@ title: Optimizer
 description: Where did my tokens go?
 ---
 
+> **Coming soon on npm.** Package name: `@ruah-dev/opt`. Not published yet — install commands below are the intended public surface.
+
 > **Where did my tokens go?**
 
 First-priority input is a Claude Code transcript you already have on disk. Canonical `Trace` is the second adapter. Cache-read / cache-write stay out of `tokensIn`.
@@ -16,6 +18,7 @@ First-priority input is a Claude Code transcript you already have on disk. Canon
 `@ruah-dev/opt` profiles spend. Phase 1 is measure-only: no compaction, no routing.
 
 ```bash
+npm i -g @ruah-dev/cli @ruah-dev/opt
 ruah opt analyze ~/.claude/projects/<proj>/
 ruah opt waste session.jsonl
 ruah opt report --format html --out report.html

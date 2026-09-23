@@ -3,6 +3,8 @@ title: Guard
 description: Can I trust the agent not to do damage — in any harness, with proof?
 ---
 
+> **Coming soon on npm.** Package name: `@ruah-dev/guard`. Not published yet — install commands below are the intended public surface.
+
 > **Can I trust the agent not to do damage — in *any* harness, with proof?**
 
 One deterministic policy file. The same verdict in Claude Code, Codex, Cursor, CI, and a local `check`. Backed by a bypass-attempt suite. The edge over built-in permission modes is **portable and testable**, not "it blocks `rm -rf`".
@@ -16,9 +18,10 @@ One deterministic policy file. The same verdict in Claude Code, Codex, Cursor, C
 `@ruah-dev/guard` sits between an agent and the world. Deterministic rules only — no LLM "intent detection".
 
 ```bash
-npx @ruah-dev/guard init
-npx @ruah-dev/guard check --cmd 'rm -rf /' --json
-echo '{"tool":"Bash","command":"rm -rf /"}' | npx @ruah-dev/guard hook --stdin
+npm i -g @ruah-dev/cli @ruah-dev/guard
+ruah guard init
+ruah guard check --cmd 'rm -rf /' --json
+echo '{"tool":"Bash","command":"rm -rf /"}' | ruah guard hook --stdin
 ```
 
 Requires Node.js >= 18. **Zero runtime dependencies.** Peer: `@ruah-dev/schema`.

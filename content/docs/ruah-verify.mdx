@@ -3,6 +3,8 @@ title: Verify
 description: Did the agent actually finish?
 ---
 
+> **Coming soon on npm.** Package name: `@ruah-dev/verify`. Not published yet — install commands below are the intended public surface.
+
 > **Did the agent actually finish?**
 
 Not a thin `npm test` wrapper. Identity is per-criterion evidence, first-class `unverifiable`, and a stable JSON verdict. `init` from `package.json` is the wedge.
@@ -16,6 +18,7 @@ Not a thin `npm test` wrapper. Identity is per-criterion evidence, first-class `
 `@ruah-dev/verify` is the independent referee. Acceptance criteria are machine-runnable checks; anything that cannot be checked is `unverifiable`, never silently passed.
 
 ```bash
+npm i -g @ruah-dev/cli @ruah-dev/verify
 cd your-repo
 ruah verify init
 ruah verify run

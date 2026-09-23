@@ -13,6 +13,8 @@ export interface ToolConfig {
   demoAlt?: string;
   /** Use an animated React terminal instead of a GIF */
   demoAnimated?: boolean;
+  /** Package is not on npm yet — docs keep content but mark coming soon */
+  comingSoon?: boolean;
 }
 
 export const tools: ToolConfig[] = [
@@ -54,10 +56,11 @@ export const tools: ToolConfig[] = [
     tagline: "Can I trust the agent not to do damage — in any harness, with proof?",
     description:
       "One deterministic policy file. The same verdict in Claude Code, Codex, Cursor, and CI, backed by a bypass-attempt test suite. Portable and testable — not just another rm -rf blocker.",
-    install: "npm i -g @ruah-dev/guard",
+    install: "npm i -g @ruah-dev/cli @ruah-dev/guard",
     github: "https://github.com/ruah-dev/ruah-guard",
     color: "var(--color-coral-400)",
     demoAnimated: true,
+    comingSoon: true,
     features: [
       "Sub-50ms deterministic command verdicts",
       "High-entropy secret scanner (sk_live, AWS, PEM)",
@@ -81,10 +84,11 @@ export const tools: ToolConfig[] = [
     tagline: "Did the agent actually finish?",
     description:
       "The independent, deterministic referee for agent outputs. Turns acceptance criteria into machine-runnable checks. Anything that cannot be machine-checked is marked unverifiable — never silently passed.",
-    install: "npm i -g @ruah-dev/verify",
+    install: "npm i -g @ruah-dev/cli @ruah-dev/verify",
     github: "https://github.com/ruah-dev/ruah-verify",
     color: "var(--color-sage-400)",
     demoAnimated: true,
+    comingSoon: true,
     features: [
       "6 criteria types (shell, regex, schema, no-diff, file, script)",
       "Parallel criterion execution with deterministic order",
@@ -108,10 +112,11 @@ export const tools: ToolConfig[] = [
     tagline: "Where did my tokens go?",
     description:
       "Read Claude Code session transcripts and canonical traces to reveal exactly where your tokens and money went. Pinpoint context bloat, repeated file reads, and oversized tool outputs with actionable fixes.",
-    install: "npm i -g @ruah-dev/opt",
+    install: "npm i -g @ruah-dev/cli @ruah-dev/opt",
     github: "https://github.com/ruah-dev/ruah-opt",
     color: "var(--color-amber-400)",
     demoAnimated: true,
+    comingSoon: true,
     features: [
       "Claude Code JSONL transcript adapter (~/.claude/projects/)",
       "Waste heuristics H1–H4 (oversized tools, repeated reads, dead context)",
@@ -134,10 +139,11 @@ export const tools: ToolConfig[] = [
     tagline: "Can I show someone what this session did?",
     description:
       "Convert raw, messy agent sessions into beautiful, self-contained HTML replays. Includes interactive turn timelines, syntax-highlighted diffs, and automatic privacy redaction. Zero server required.",
-    install: "npm i -g @ruah-dev/watch",
+    install: "npm i -g @ruah-dev/cli @ruah-dev/watch",
     github: "https://github.com/ruah-dev/ruah-watch",
     color: "var(--color-lavender-400)",
     demoAnimated: true,
+    comingSoon: true,
     features: [
       "Single-command replay generation (ruah watch render --latest)",
       "Automated privacy redaction (--redact strips paths, tokens, emails)",
@@ -160,10 +166,11 @@ export const tools: ToolConfig[] = [
     tagline: "Same task — which executor wins, and what did it cost?",
     description:
       "A fast micro-benchmark harness for AI coding agents. Run one task specification across multiple executors in fresh, isolated sandboxes with deterministic acceptance criteria and cost scorecards.",
-    install: "npm i -g @ruah-dev/eval",
+    install: "npm i -g @ruah-dev/cli @ruah-dev/eval",
     github: "https://github.com/ruah-dev/ruah-eval",
     color: "var(--color-sage-300)",
     demoAnimated: true,
+    comingSoon: true,
     features: [
       "Ephemeral sandbox isolation per run (/tmp/ruah-sandbox-*)",
       "Multi-executor orchestration (Claude Code, Codex, OpenCode, Scripts)",

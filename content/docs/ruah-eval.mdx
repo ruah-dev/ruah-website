@@ -3,6 +3,8 @@ title: Eval
 description: Same task — which executor wins, and what did it cost?
 ---
 
+> **Coming soon on npm.** Package name: `@ruah-dev/eval`. Not published yet — install commands below are the intended public surface.
+
 > **Same task — which executor wins, and what did it cost?**
 
 Eval stays micro. One task, N executors, deterministic criteria. Not a benchmark platform.
@@ -16,6 +18,7 @@ Eval stays micro. One task, N executors, deterministic criteria. Not a benchmark
 `@ruah-dev/eval` is a micro-benchmark harness. One task (prompt + seed files), N executors, acceptance criteria as the judge, fresh sandbox per run.
 
 ```bash
+npm i -g @ruah-dev/cli @ruah-dev/eval
 ruah eval init
 ruah eval run .ruah/evals/sample-eval.json --out results.json
 ruah eval run spec.json --runs 5

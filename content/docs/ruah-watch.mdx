@@ -3,6 +3,8 @@ title: Watch
 description: Can I show someone what this session did?
 ---
 
+> **Coming soon on npm.** Package name: `@ruah-dev/watch`. Not published yet — install commands below are the intended public surface. Hold: not in the current publish batch.
+
 > **Can I show someone what this session did?**
 
 v1 is frozen to `render --latest → shareable HTML`. First-priority input is a Claude Code session on disk. No server.
@@ -16,6 +18,7 @@ v1 is frozen to `render --latest → shareable HTML`. First-priority input is a 
 `@ruah-dev/watch` turns one agent session into a self-contained HTML replay: timeline, expandable tool calls, token strip, Edit diffs, optional verify verdict.
 
 ```bash
+npm i -g @ruah-dev/cli @ruah-dev/watch
 ruah watch render --latest --out replay.html
 ruah watch render session.jsonl --out replay.html --verify report.json
 ```
